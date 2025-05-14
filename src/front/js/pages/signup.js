@@ -1,8 +1,35 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
     const { actions } = useContext(Context);
+    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [dateOfBirth, setDateOfBirth] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate();
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await actions.signup(
+                username,
+                email,
+                password,
+                name,
+                lastName,
+                dateOfBirth
+            );
+        if (response.success) {
+            navigate("/");
+        } else {
+            setErrorMessage(response.error);
+        }
+    };
+
 
     return (
         <div className="container">
@@ -20,6 +47,36 @@ export const Signup = () => {
                     />
                 </div>
                 <div className="mb-3">
+                    <label className="form-label">Name</label>
+                    <input
+                        type="name"
+                        className="form-control"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Last Name</label>
+                    <input
+                        type="lastName"
+                        className="form-control"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Date of Birth</label>
+                    <input
+                        type="dateOfBirth"
+                        className="form-control"
+                        value={dateOfBirth}
+                        onChange={(e) => setDateOfBirth(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
                     <label className="form-label">Email</label>
                     <input
                         type="email"
@@ -29,6 +86,7 @@ export const Signup = () => {
                         required
                     />
                 </div>
+
                 <div className="mb-3">
                     <label className="form-label">Password</label>
                     <input
