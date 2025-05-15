@@ -84,7 +84,7 @@ def login():
 
     user = User.query.filter_by(email=email).first()
 
-    if user is None or not user.check_password(password) or not user.is_active:
+    if user is None or not user.check_password(password):
         return jsonify({"error": "Invalid credentials or inactive user"}), 401
 
     token = user.generate_token()
