@@ -34,4 +34,4 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
     
     def generate_token(self):
-        return create_access_token(identity=self.id)
+        return create_access_token(identity=str(self.id))

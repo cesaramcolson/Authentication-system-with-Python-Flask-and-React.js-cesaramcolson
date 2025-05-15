@@ -127,7 +127,7 @@ def update_user():
         if User.query.filter_by(email=email).first():
             return jsonify({"error": "Email already in use"}), 409
         user.email = email
-    if password:
+    if password and password.strip():
         user.set_password(password)
     if name:
         user.name = name

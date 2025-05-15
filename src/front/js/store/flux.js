@@ -91,18 +91,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 			updateUser: async (username, email, password, name, last_name, date_of_birth) => {
 				const store = getStore();
 				try {
+					// Construir el body solo con los campos no vacíos
+					const body = {};
+					if (username) body.username = username;
+					if (email) body.email = email;
+					if (password && password.trim() !== "") body.password = password;
+					if (name) body.name = name;
+					if (last_name) body.last_name = last_name;
+					if (date_of_birth) body.date_of_birth = date_of_birth;
+
 					const resp = await fetch(process.env.BACKEND_URL + "/api/user", {
 						method: "PUT",
 						headers: {
 							"Content-Type": "application/json",
 							"Authorization": `Bearer ${store.token}`
 						},
-						body: JSON.stringify({ username, email, password, name, last_name, date_of_birth })
+						body: JSON.stringify(body)
 					});
-			
+
 					if (resp.ok) {
 						const data = await resp.json();
-						console.log("private-data", store.privateData)
 						setStore({ privateData: data.user });
 						return { success: true, data };
 					} else {
