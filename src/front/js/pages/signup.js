@@ -49,7 +49,7 @@ export const Signup = () => {
                 <div className="mb-3">
                     <label className="form-label">Name</label>
                     <input
-                        type="name"
+                        type="text"
                         className="form-control"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -59,7 +59,7 @@ export const Signup = () => {
                 <div className="mb-3">
                     <label className="form-label">Last Name</label>
                     <input
-                        type="lastName"
+                        type="text"
                         className="form-control"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
@@ -69,7 +69,7 @@ export const Signup = () => {
                 <div className="mb-3">
                     <label className="form-label">Date of Birth</label>
                     <input
-                        type="dateOfBirth"
+                        type="date"
                         className="form-control"
                         value={dateOfBirth}
                         onChange={(e) => setDateOfBirth(e.target.value)}
